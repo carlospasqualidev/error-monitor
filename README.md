@@ -1,4 +1,4 @@
-# Default-Backend-Project
+# Error-Monitor
 
 Este projeto tem a finalidade de receber atravez de requisição um erro e salva-lo no MongoDB, tambem envia uma mensagem a um canal do discord contendo um log completo do erro. Desenvolvi do absoluto zero reunindo todo meu conhecimento para desenvolve-lo, utilizei das melhores técnicas e tecnologias da atualidade.
 
