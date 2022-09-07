@@ -1,0 +1,18 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model ErrorLogs {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  projectName String
+  environment String
+  side        String
+  errorStack  String
+
+  createdAt DateTime @default(now())
+}

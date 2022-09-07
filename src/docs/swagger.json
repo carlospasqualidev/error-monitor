@@ -1,0 +1,101 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Error Monitor",
+    "description": "Documentação API Error Monitor",
+    "version": "1.0.0",
+    "contact": {
+      "email": "carlos.pasquali.dev@gmail.com",
+      "name": "Carlos Pasquali"
+    }
+  },
+  "servers": [
+    {
+      "description": "Local Development",
+      "url": "http://localhost:8080/api"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "responses": {
+      "ServerMessage": {
+        "description": "Mensagem de erro padrão do backend",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ServerMessage": {
+                  "properties": {
+                    "statusCode": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/logs/create": {
+      "post": {
+        "tags": ["Logs"],
+        "summary": "Registra o erro no MongoDB e comunica a equipe pelo discord.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "projectName": {
+                    "type": "string",
+                    "default": "Error Monitor"
+                  },
+                  "environment": {
+                    "type": "string",
+                    "default": "Ambiente de erro"
+                  },
+                  "side": {
+                    "type": "string",
+                    "default": "Client"
+                  },
+                  "errorStack": {
+                    "type": "string",
+                    "default": "Stack do erro"
+                  }
+                }
+              }
+            }
+          }
+        },
+
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ServerMessage"
+          },
+          "400": {
+            "$ref": "#/components/responses/ServerMessage"
+          }
+        }
+      }
+    }
+  }
+}
